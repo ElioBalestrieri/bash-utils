@@ -30,7 +30,6 @@ def main():
     
     runstring = "rsync -arP {} {}".format(SRC, DEST)
     sp.run(runstring, shell=True)
-    sp.run("sleep 10", shell=True)
 
 if __name__ == "__main__":
     main()
