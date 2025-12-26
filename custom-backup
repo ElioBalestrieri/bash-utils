@@ -1,0 +1,37 @@
+#!/usr/bin/python3
+
+import tkinter as tk
+from tkinter import filedialog
+import subprocess as sp
+
+def select_folder(foldertype):
+    # Create a hidden root window (to prevent a blank Tk window from appearing)
+    root = tk.Tk()
+    root.withdraw() 
+
+    # Open the directory selection dialog
+    folder_path = filedialog.askdirectory(
+        title="Seleziona la {}".format(foldertype)
+    )
+
+    # Destroy the hidden window after selection
+    root.destroy()
+
+    return folder_path
+
+def main():
+
+    # Call the function to run the dialog
+    SRC = select_folder("Fonte")
+    if not SRC: return 1    
+    
+    DEST = select_folder("Destinazione")
+    if not DEST: return 1
+    
+    runstring = "rsync -arP {} {}".format(SRC, DEST)
+    sp.run(runstring, shell=True)
+    sp.run("sleep 10", shell=True)
+
+if __name__ == "__main__":
+    main()
+
